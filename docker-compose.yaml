@@ -1,0 +1,27 @@
+version: '3'
+services:
+  backend:
+    container_name: tcc_backend
+    image: tcc_backend:1.0.0
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - tcc_app
+  frontend:
+    container_name: tcc_frontend
+    image: tcc_frontend:1.0.0
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    networks:
+      - tcc_app
+networks:
+  tcc_app:
+    driver: bridge
